@@ -1,0 +1,86 @@
+[id="subscribing-hw-events_{context}"]
+= Subscribing to Redfish BMC hardware events for a cluster node
+
+Users of bare metal hardware may want to receive events from the baseboard management controller (BMC) to act on them in case of a hardware fault, such as an increase in temperature or removal of a device. The Redfish standard includes the ability to subscribe to events, which will cause hardware events to be sent in a particular format to a destination URI. Configuring a subscription is done using the Metal3 API.
+
+Execute the following procedure from the desired node to configure event subscriptions and alerts.
+
+[IMPORTANT]
+====
+This feature only works on physical hardware running Redfish with support for events with a vendor interface set to `redfish` or `idrac-redfish`. 
+====
+
+.Procedure
+
+. Power off the bare metal node by using the baseboard management controller, and ensure it is off.
+
+. Retrieve the user name and password of the bare metal node's baseboard management controller. 
+
+.Confirm the hardware has EventService enabled by using the iDRAC/iLO interface [Add Steps] or the following cURL command:
++
+[source,terminal]
+----
+curl https://<bmc_address>/redfish/v1/EventService --insecure -H 'Content-Type: application/json' -u "<username>:<password>"
+----
++
+. Create a configuration file for the bare metal node.
++
+[source,terminal,subs="+quotes"]
+----
+$ vim __<config_file>__.yaml
+----
++
+[source,yaml,subs="+quotes"]
+----
+apiVersion: metal3.io/v1alpha1
+kind: BMCEventSubscription
+metadata:
+name: sub-01
+namespace: openshift-machine-api
+spec:
+hostName: cnfdd4-worker-1
+destination: https://hw-event-proxy-cloud-native-events.apps.cnfdd4.t5g.lab.eng.bos.redhat.com/webhook
+context: ""
+----
++
+.Example output
+[source,terminal]
+----
+"ServiceEnabled": true,
+"Status": {
+"Health": "OK",
+"HealthRollup": "OK",
+"State": "Enabled"
+},
+----
++
+.Create the subscription
++
+[source,terminal,subs="+quotes"]
+----
+$ oc apply -f __<config_file>__.yaml
+----
++
+.Delete the subscription
++
+[source,terminal,subs="+quotes"]
+----
+$ oc delete -f __<config_file>__.yaml
+----
++
+.Configure critical messages
++
+[source,terminal,subs="+quotes"]
+----
+$ ???? Doc story doesn't specify command
+----
++
+.Configure the amount of events a webhook receives
+[Example?]
++
+[NOTE]
+====
+This API is for subscribing to events of a pre-defined type. In cases where no particular type is available, users would need to configure it out-of-band.
+
+The Redfish standard does not provide an option to create specific alerts and thresholds. For example, to receive an alert when an enclosure's temperature exceeds 40C, this must be configured manually according to the vendor's recommendations.
+====
