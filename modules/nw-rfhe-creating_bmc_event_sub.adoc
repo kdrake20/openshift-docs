@@ -71,8 +71,8 @@ where:
 +
 --
 bmc_address:: is the DRAC IP address of the BMC controller
-user_name:: is the BMC user login
-password:: is the BMC password login
+user_name:: is the BMC user
+password:: is the BMC password
 --
 +
 .Example output
