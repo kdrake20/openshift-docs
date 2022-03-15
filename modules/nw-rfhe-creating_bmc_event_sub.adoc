@@ -67,13 +67,6 @@ $ do oc debug node/<node_name> -- chroot /host shutdown -h 1
 curl https://<bmc_address>/redfish/v1/EventService --insecure -H 'Content-Type: application/json' -u "<user_name>:<password>"
 ----
 +
-where:
---
-bmc_address:: is the DRAC IP address of the BMC controller
-user_name:: is the BMC user login
-password:: is the BMC password login
---
-+
 .Example output
 [source,terminal]
 ----
