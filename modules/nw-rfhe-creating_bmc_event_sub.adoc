@@ -4,9 +4,9 @@
 
 :_content-type: PROCEDURE
 [id="nw-rfhe-creating_bmc_event_sub_{context}"]
-= Subscribing to Redfish BMC hardware events for a cluster node
+= Subscribing to Redfish hardware events
 
-You can configure applications that are running on bare-metal cluster nodes to subscribe to Redfish hardware events that are generated on the baseboard management controller (BMC). Example Redfish events include increase in device temperature, or removal of a device. Redfish hardware events are delivered to subscribed applications using a Redfish events REST API.
+You can configure applications that are running on bare-metal cluster nodes to subscribe to Redfish hardware events that the baseboard management controller (BMC) generates. Example Redfish events include increase in device temperature, or removal of a device. Applications subscribe to Redfish hardware events using a REST API.
 
 Before you can subscribe to Redfish hardware events for the node, you must create a `BMCEventSubscription` custom resource (CR) for the node.
 
@@ -29,37 +29,6 @@ Use the `BMCEventSubscription` CR to subscribe to pre-defined Redfish events. Th
 
 .Procedure
 
-. Cordon and drain the node:
-+
-[source,terminal]
-----
-$ oc adm cordon <node_name>
-----
-+
-where:
-+
---
-<node_name>:: is the bare-metal node that is generating Redfish hardware events.
---
-+
-.Example output
-[source,terminal]
-----
-node/compute-1.example.com cordoned
-----
-+
-[source,terminal]
-----
-$ oc adm drain <node_name> --force=true
-----
-
-. Shut down the node:
-+
-[source,terminal]
-----
-$ do oc debug node/<node_name> -- chroot /host shutdown -h 1
-----
-
 . Confirm the hardware has the Redfish `EventService` enabled using the following `curl` command:
 +
 [source,terminal]
@@ -71,7 +40,7 @@ where:
 +
 --
 bmc_address:: is the DRAC IP address of the BMC controller
-user_name:: is the BMC user
+user_name:: is the BMC user name
 password:: is the BMC password
 --
 +
@@ -93,29 +62,10 @@ password:: is the BMC password
          ],
          "target":"/redfish/v1/EventService/Actions/EventService.SubmitTestEvent"
       }
-   },
-   "DeliveryRetryAttempts":3,
-   "DeliveryRetryIntervalSeconds":30,
-   "Description":"Event Service represents the properties for the service",
-   "EventTypesForSubscription":[
-      "StatusChange",
-      "ResourceUpdated",
-      "ResourceAdded",
-      "ResourceRemoved",
-      "Alert"
-   ],
-   "EventTypesForSubscription@odata.count":5,
-   "Id":"EventService",
-   "Name":"Event Service",
-   "ServiceEnabled":true,
-   "Status":{
-      "Health":"OK",
-      "HealthRollup":"OK",
-      "State":"Enabled"
-   },
-   "Subscriptions":{
-      "@odata.id":"/redfish/v1/EventService/Subscriptions"
    }
+
+...
+
 }
 ----
 
