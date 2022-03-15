@@ -1,5 +1,6 @@
 // Module included in the following assemblies:
 //
+// installing/installing_alibaba/installing-alibaba-network-customizations.adoc
 // * installing/installing_bare_metal/installing-bare-metal-network-customizations.adoc
 // * installing/installing_bare_metal/installing-bare-metal.adoc
 // * installing/installing_bare_metal/installing-restricted-networks-bare-metal.adoc
@@ -68,6 +69,7 @@
 // * installing/installing_vmc/installing-vmc.adoc
 // * installing/installing_ibm_power/installing-ibm-power.adoc
 // * installing/installing_ibm_power/installing-restricted-networks-ibm-power.adoc
+// * installing/installing_azure_stack_hub/installing-azure-stack-hub-network-customizations.adoc
 // * architecture/architecture.adoc
 
 ifeval::["{context}" == "installing-restricted-networks-bare-metal"]
@@ -129,7 +131,7 @@ your cluster.
 
 You must have internet access to:
 
-* Access the link:https://console.redhat.com/openshift[{console-redhat-com}] page to download the installation program and perform subscription management. If the cluster has internet access and you do not disable Telemetry, that service automatically entitles your cluster.
+* Access {cluster-manager-url} to download the installation program and perform subscription management. If the cluster has internet access and you do not disable Telemetry, that service automatically entitles your cluster.
 * Access link:http://quay.io[Quay.io] to obtain the packages that are required to install your cluster.
 * Obtain the packages that are required to perform cluster updates.
 ifdef::openshift-enterprise,openshift-webscale[]
