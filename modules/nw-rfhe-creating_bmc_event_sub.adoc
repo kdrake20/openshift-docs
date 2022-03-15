@@ -6,7 +6,7 @@
 [id="nw-rfhe-creating_bmc_event_sub_{context}"]
 = Subscribing to Redfish BMC hardware events for a cluster node
 
-You can configure applications that are running on bare-metal cluster nodes to subscribe to Redfish hardware events that are generated on the baseboard management controller (BMC). Example Redfish events include increase in device temperature, or removal of a device. Redfish hardware events are delivered to subscribed applcations using a Redfish events REST API.
+You can configure applications that are running on bare-metal cluster nodes to subscribe to Redfish hardware events that are generated on the baseboard management controller (BMC). Example Redfish events include increase in device temperature, or removal of a device. Redfish hardware events are delivered to subscribed applications using a Redfish events REST API.
 
 Before you can subscribe to Redfish hardware events for the node, you must create a `BMCEventSubscription` custom resource (CR) for the node.
 
