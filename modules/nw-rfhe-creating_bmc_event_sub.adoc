@@ -92,11 +92,11 @@ metadata:
   namespace: openshift-machine-api
 spec:
    hostName: <hostname> <1>
-   destination: https://hw-event-proxy-cloud-native-events.apps.compute-1.example.com/webhook <2>
+   destination: <proxy_service_url> <2>
    context: ''
 ----
 <1> Specifies the name or UUID of the worker node where the Redfish events are generated.
-<2> Specifies the Baremetal Hardware Event proxy service.
+<2> Specifies the baremetal hardware event proxy service, for example, `https://hw-event-proxy-cloud-native-events.apps.compute-1.example.com/webhook`.
 +
 .. Create the `BMCEventSubscription` CR:
 +
