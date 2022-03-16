@@ -24,8 +24,13 @@ Use the `BMCEventSubscription` CR to subscribe to pre-defined Redfish events. Th
 
 * Install the OpenShift CLI (`oc`).
 * Log in as a user with `cluster-admin` privileges.
-* Deploy a bare-metal node with Redfish hardware in your cluster.
-* Get the user name and password for the bare-metal node BMC.
+* Get the user name and password for the BMC.
+* Deploy a bare-metal node with Redfish hardware in your cluster, and enable Redfish events on the BMC.
+
+[NOTE]
+====
+Enabling Redfish events on specific hardware is outside the scope of this information. For more information about enabling Redfish events for your specific hardware, consult the BMC manufacturer documentation.
+====
 
 .Procedure
 
@@ -95,7 +100,7 @@ spec:
 +
 .. Create the `BMCEventSubscription` CR:
 +
-[source,yaml]
+[source,terminal]
 ----
 $ oc create -f bmc_sub.yaml
 ----
