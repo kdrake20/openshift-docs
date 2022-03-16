@@ -29,7 +29,7 @@ Use the `BMCEventSubscription` CR to subscribe to pre-defined Redfish events. Th
 
 .Procedure
 
-. Confirm the hardware has the Redfish `EventService` enabled using the following `curl` command:
+. Confirm the node hardware has the Redfish `EventService` enabled using the following `curl` command:
 +
 [source,terminal]
 ----
@@ -46,22 +46,31 @@ bmc_ip_address:: is the IP address of the BMC controller
 [source,terminal]
 ----
 {
-   "@odata.context":"/redfish/v1/$metadata#EventService.EventService",
-   "@odata.id":"/redfish/v1/EventService",
-   "@odata.type":"#EventService.v1_0_2.EventService",
-   "Actions":{
-      "#EventService.SubmitTestEvent":{
-         "EventType@Redfish.AllowableValues":[
-            "StatusChange",
-            "ResourceUpdated",
-            "ResourceAdded",
-            "ResourceRemoved",
-            "Alert"
-         ],
-         "target":"/redfish/v1/EventService/Actions/EventService.SubmitTestEvent"
+   "@odata.context": "/redfish/v1/$metadata#EventService.EventService",
+   "@odata.id": "/redfish/v1/EventService",
+   "@odata.type": "#EventService.v1_0_2.EventService",
+   "Actions": {
+      "#EventService.SubmitTestEvent": {
+         "EventType@Redfish.AllowableValues": ["StatusChange", "ResourceUpdated", "ResourceAdded", "ResourceRemoved", "Alert"],
+         "target": "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent"
       }
+   },
+   "DeliveryRetryAttempts": 3,
+   "DeliveryRetryIntervalSeconds": 30,
+   "Description": "Event Service represents the properties for the service",
+   "EventTypesForSubscription": ["StatusChange", "ResourceUpdated", "ResourceAdded", "ResourceRemoved", "Alert"],
+   "EventTypesForSubscription@odata.count": 5,
+   "Id": "EventService",
+   "Name": "Event Service",
+   "ServiceEnabled": true,
+   "Status": {
+      "Health": "OK",
+      "HealthRollup": "OK",
+      "State": "Enabled"
+   },
+   "Subscriptions": {
+      "@odata.id": "/redfish/v1/EventService/Subscriptions"
    }
-...
 }
 ----
 
@@ -90,16 +99,10 @@ spec:
 ----
 $ oc create -f bmc_sub.yaml
 ----
+
+. To delete the BMC event subscription, run the following command:
 +
-.Example output
-[source,json]
+[source,terminal]
 ----
-{
-   "ServiceEnabled":true,
-   "Status":{
-      "Health":"OK",
-      "HealthRollup":"OK",
-      "State":"Enabled"
-   }
-}
+$ oc delete -f bmc_sub.yaml
 ----
