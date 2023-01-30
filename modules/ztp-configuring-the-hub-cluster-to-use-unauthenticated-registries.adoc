@@ -1,0 +1,48 @@
+:_content-type: PROCEDURE
+[id="ztp-configuring-the-hub-cluster-to-use-unauthenticated-registries_{context}"]
+= Configuring the hub cluster to use unauthenticated registries
+
+You can configure the hub cluster to use unauthenticated registries.
+
+.Prerequisites
+
+* You have installed and configured a hub cluster and installed {rh-rhacm-first} on the hub cluster.
+
+* You have installed the OpenShift Container Platform CLI (oc).
+
+* You have logged in as a user with cluster-admin privileges.
+
+* You have configured an unauthenticated registry for use with the hub cluster.
+
+.Procedure
+
+. Update the `AgentServiceConfig` custom resource (CR) by running the following command:
++
+[source,terminal]
+----
+$ oc edit AgentServiceConfig
+---
+. Add the `unauthenticatedRegistries` field in the CR:
+[source,terminal]
+----
+apiVersion: agent-install.openshift.io/v1beta1
+kind: AgentServiceConfig
+metadata:
+  name: agent
+spec:
+  unauthenticatedRegistries:
+  - example.registry.com
+  - example.registry2.com
+  ...
+----
+
+Unauthenticated registries are listed under `spec.unauthenticatedRegistries` in the `AgentServiceConfig` resource.
+Any registry on this list is not required to have an entry in the pull secret validated by the `assisted-service`.
+`assisted-service` validates the pull secret created for the spoke cluster installation by making sure it contains the authentication information for every image registry used for installation.
+
+[NOTE]
+====
+Mirror registries will automatically be added to the ignore list and do not need to be added under `spec.unauthenticatedRegistries`.
+
+Specifying the `PUBLIC_CONTAINER_REGISTRIES` environment variable in the `ConfigMap override` will overwrite the list to the specified value.
+====
