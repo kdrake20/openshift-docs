@@ -17,6 +17,8 @@ ifndef::openshift-origin[]
 
 To install {product-title} on a single node, use the web-based Assisted Installer wizard to guide you through the process and manage the installation.
 
+See the link:https://access.redhat.com/documentation/en-us/assisted_installer_for_openshift_container_platform/[Assisted Installer for {product-title}] documentation for details and configuration options.
+
 include::modules/install-sno-generating-the-discovery-iso-with-the-assisted-installer.adoc[leveloffset=+2]
 
 [role="_additional-resources"]
