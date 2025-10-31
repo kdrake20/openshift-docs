@@ -2871,6 +2871,10 @@ In both cases, the installation program generates a user-assigned identity. (lin
 
 * Event logs for GNR-D interfaces are ambiguous due to identical three-letter prefixes ("eno"). As a consequence, affected interfaces are not clearly identified during state changes. To work around this problem, change interfaces used by ptp-operator to follow the "path" naming convention, ensuring per clock events are identified correctly based on interface names and clearly indicate which clock is affected by state changes. For more information, see link:https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_networking/consistent-network-interface-device-naming_configuring-and-managing-networking#network-interface-naming-policies_consistent-network-interface-device-naming[Network interface naming policies]. (link:https://issues.redhat.com/browse/OCPBUGS-62817[OCPBUGS-62817])
 
+* When using a Time Stamp Counter (TSC) configuration, the ts2phc metrics are incorrectly reported as unlocked instead of ptp4l. As a result, users may experience inaccurate Precision Time Protocol (PTP) clock state reporting. To work around this issue, remove the ts2phc and ptp4l metrics. (link:https://issues.redhat.com/browse/OCPBUGS-63158[OCPBUGS-63158])
+
+* When updating the iDRAC firmware, an insufficient user delay setting in the BIOS can cause the update to fail. This results in an iDRAC reboot error and service interruption. To resolve this problem, disable SR-IOV and increase the AC Power Recovery User Delay. Reboot the system and attempt the update again. (link:https://issues.redhat.com/browse/OCPBUGS-60876[OCPBUGS-60876])
+
 [id="ocp-installer-known-issues_{context}"]
 
 * When you install a cluster on {aws-short}, if you do not configure {aws-short} credentials before running any `openshift-install create` command, the installation program fails. (link:https://issues.redhat.com/browse/OCPBUGS-56658[OCPBUGS-56658])
